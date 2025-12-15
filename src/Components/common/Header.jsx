@@ -1,15 +1,20 @@
 import React from 'react'
-import Navbar from '../Navbar/Navbar';
-import ScrollingTicker from '../scrollingticker/ScrollingTicker';
-import Landing from '../Landing/Landing';
+import Navbar from '../Navbar/Navbar'
+import Landing from '../Landing/Landing'
 
-const Header = () => {
+const Header = ({ cart, clearCart, removeFromCart, increaseQty, decreaseQty}) => {
   return (
     <>
-    <Navbar />
-    <Landing />
+      <Navbar 
+        cart={cart} 
+        clearCart={clearCart} 
+        removeFromCart={removeFromCart}
+        increaseQty={increaseQty} 
+        decreaseQty={decreaseQty}
+      />
+      <Landing />
     </>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

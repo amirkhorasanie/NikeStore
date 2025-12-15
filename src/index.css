@@ -9,3 +9,12 @@ body {
 html.dark {
     @apply bg-neutral-900 text-neutral-100
 }
+
+.effect {
+  border-radius: 2px;
+}
+
+.effect:hover {
+  border-radius: 30px;
+  transition: all 0.7s;
+}

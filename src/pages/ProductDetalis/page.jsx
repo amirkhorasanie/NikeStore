@@ -1,44 +1,37 @@
-import React, { useEffect, useState } from 'react'
-import Products from '../../data/Products';
+import React, { useEffect, useState } from 'react';
+import ProductsData from '../../data/Products';
 import { useParams } from 'react-router';
-import ScrollingTicker from '../../Components/scrollingticker/ScrollingTicker';
+import { useOutletContext } from 'react-router';
 import Breadcrumb from '../../Components/BreadCrumb/BreadCrumb';
 import { IoStar } from "react-icons/io5";
 import { FiShoppingBag } from "react-icons/fi";
 import { RiHeartAdd2Line } from "react-icons/ri";
 import FAQAccordion from '../../Components/FAQAccordion/FAQAccordion';
 
-const ProductDetalis = () => {
-
+  const ProductDetalis = () => {
     const { productId } = useParams();
     const [product, setProduct] = useState({});
+    const { addToCart } = useOutletContext(); // استفاده از cart و addToCart اصلی
 
     useEffect(() => {
-        const mainproduct = Products.find(
+        const mainProduct = ProductsData.find(
             (product) => product.id === Number(productId)
         );
-        setProduct(mainproduct);
+        setProduct(mainProduct);
     }, [productId]);
 
     return (
-        // یک کانتینر اصلی برای محدود کردن عرض در مانیتورهای خیلی بزرگ
         <div className="max-w-screen-3xl mx-auto">
-            {/* Header Section */}
             <div className='w-full px-8 flex border-b-2 border-gray-400 dark:border-neutral-600'>
-                {/* استفاده از flex-1 برای پر کردن فضا */}
                 <div className='border-x-2 px-6  py-3 border-gray-400 dark:border-neutral-600 flex-1'>
                     <Breadcrumb
                         links={[
                             { id: 1, title: "Home", to: "/" },
                             { id: 2, title: "Men", to: "/" },
                             { id: 3, title: "Shoes", to: "/" },
-                            //{ id: 4, title: product?.title, to: "/" }
                         ]}
                     />
                     <p className='text-4xl py-2.5 font-bold'>{product?.title}</p>
-                </div>
-
-                <div className='border-r-2 pt-5 border-gray-400 dark:border-neutral-600 px-8 text-right hidden md:block'>
                 </div>
             </div>
 
@@ -90,7 +83,7 @@ const ProductDetalis = () => {
 
                     <div className='lg:col-span-3'>
                         <div className="sticky top-4">
-                            <button className='flex hover:rounded-4xl justify-center rounded-sm items-center gap-2.5 bg-black text-lg text-white dark:bg-white dark:text-black font-semibold w-full py-2.5 hover:bg-black/80 dark:hover:bg-white/60 transition-colors'>
+                            <button onClick={() => addToCart(product)} className='flex cursor-pointer hover:rounded-4xl justify-center rounded-sm items-center gap-2.5 bg-black text-lg text-white dark:bg-white dark:text-black font-semibold w-full py-2.5 hover:bg-black/80 dark:hover:bg-white/60 transition-colors'>
                                 <FiShoppingBag className='text-2xl' />Add to Bag
                             </button>
                             <button className='flex hover:rounded-4xl justify-center rounded-sm items-center mt-5 gap-2 text-lg border-2 font-semibold w-full py-2.5 hover:bg-gray-100/20 transition-colors'>
@@ -104,7 +97,7 @@ const ProductDetalis = () => {
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default ProductDetalis;

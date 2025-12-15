@@ -81,7 +81,7 @@ const Product = ({ id, src, status, title, size, colornumber, price, New, See })
               <Link to={PRODUCT_URL}>{colornumber}</Link>
             </p>
             <p className='text-xl'>
-              <Link to={PRODUCT_URL}>{price}</Link>
+              <Link to={PRODUCT_URL}>${price}.00</Link>
             </p>
           </>
         )}

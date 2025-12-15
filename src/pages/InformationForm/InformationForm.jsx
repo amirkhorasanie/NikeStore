@@ -80,13 +80,13 @@ const InformationForm = () => {
             {/* بخش اطلاعات شخصی */}
             <div className="mt-10">
               <h2 className="text-xl text-zinc-800 font-bold mb-6">
-                اطلاعات شخصی
+                Personal information
               </h2>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-zinc-700 font-medium mb-2">
-                    نام
+                    firstName
                   </label>
                   <input
                     value={user.firstName}
@@ -96,13 +96,13 @@ const InformationForm = () => {
                     type="text"
                     name="firstName"
                     className="w-full px-4 py-2 border border-zinc-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="نام خود را وارد کنید"
+                    placeholder="Enter your firstName"
                   />
                 </div>
 
                 <div>
                   <label className="block text-zinc-700 font-medium mb-2">
-                    نام خانوادگی
+                    lastName
                   </label>
                   <input
                     value={user.lastName}
@@ -112,13 +112,13 @@ const InformationForm = () => {
                     type="text"
                     name="lastName"
                     className="w-full px-4 py-2 border border-zinc-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="نام خانوادگی خود را وارد کنید"
+                    placeholder="Enter your lastName"
                   />
                 </div>
 
                 <div>
                   <label className="block text-zinc-700 font-medium mb-2">
-                    ایمیل
+                    email
                   </label>
                   <input
                     value={user.email}
@@ -134,7 +134,7 @@ const InformationForm = () => {
 
                 <div>
                   <label className="block text-zinc-700 font-medium mb-2">
-                    شماره تلفن
+                    phoneNumber
                   </label>
                   <input
                     value={user.phone}
@@ -150,7 +150,7 @@ const InformationForm = () => {
 
                 <div>
                   <label className="block text-zinc-700 font-medium mb-2">
-                    تاریخ تولد
+                    birthDate
                   </label>
                   <input
                     value={user.birthDate}
@@ -166,7 +166,7 @@ const InformationForm = () => {
 
                 <div>
                   <label className="block text-zinc-700 font-medium mb-2">
-                    جنسیت
+                    gender
                   </label>
                   <select
                     value={user.gender}
@@ -180,46 +180,6 @@ const InformationForm = () => {
                     <option value="male">مرد</option>
                     <option value="female">زن</option>
                     <option value="prefer-not">ترجیح نمی‌دهم</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-zinc-700 font-medium mb-2">
-                    ملیت
-                  </label>
-                  <input
-                    value={user.nationality}
-                    onChange={(event) =>
-                      dispatch({
-                        type: "nationality",
-                        value: event.target.value,
-                      })
-                    }
-                    type="text"
-                    name="nationality"
-                    className="w-full px-4 py-2 border border-zinc-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="ایرانی"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-zinc-700 font-medium mb-2">
-                    وضعیت تأهل
-                  </label>
-                  <select
-                    value={user.maritalStatus}
-                    onChange={(event) =>
-                      dispatch({
-                        type: "maritalStatus",
-                        value: event.target.value,
-                      })
-                    }
-                    name="maritalStatus"
-                    className="w-full px-4 py-2 border border-zinc-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  >
-                    <option value="">انتخاب کنید</option>
-                    <option value="single">مجرد</option>
-                    <option value="married">متاهل</option>
                   </select>
                 </div>
               </div>

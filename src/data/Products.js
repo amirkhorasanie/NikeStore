@@ -6,7 +6,7 @@ export default [
       title: "Air Jordan 1 Retro High OG",
       size:"Men's Shoes",
       colornumber:"1 Color",
-      price: "$165.00",
+      price: 165,
       New:"NEW"
     },
     {
@@ -16,7 +16,7 @@ export default [
       title: "Air Jordan 3 Retro Midnight",
       size:"Men's Shoes",
       colornumber:"1 Color",
-      price: "$257.00",
+      price: 257,
     },
     {
       id: 3,
@@ -25,7 +25,7 @@ export default [
       title: "Air Max 90 Ultra Fly",
       size:"Men's Shoes",
       colornumber:"1 Color",
-      price: "$421.00",
+      price: 421,
       New:"NEW"
     },
       {
@@ -35,6 +35,6 @@ export default [
         title: "Air Jordan 11 Retro Legend",
         size:"Men's Shoes",
         colornumber:"1 Color",
-        price: "$324.00",
+        price: 324,
       }
   ];
