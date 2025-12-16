@@ -10,22 +10,29 @@ import clsx from "clsx";
 import { HiMiniTrash } from "react-icons/hi2";
 import { MdAdd } from "react-icons/md";
 import { IoMdRemove } from 'react-icons/io';
+import { CgHeart } from "react-icons/cg";
 
 const Navbar = ({
   cart,
+  favorite,
   clearCart,
+  removeFromFavorite,
   removeFromCart,
   increaseQty,
   decreaseQty,
 }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
 
+  const [isOpen, setIsOpen] = useState(false);
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
-
+  
+  const [isFavoriteOpen, setIsFavoriteOpen] = useState(false);
+  const openFavorite = () => setIsFavoriteOpen(true);
+  const closeFavorite = () => setIsFavoriteOpen(false);
+  
   const navigate = useNavigate();
-
+  
   const goToSignin = () => {
     navigate('/register');
   };
@@ -33,35 +40,34 @@ const Navbar = ({
   const navLinks = ['HOME', 'MAN', 'WOMAN', 'KIDS', 'COLLECTIONS', 'CONTACT'];
 
   return (
-    <header className="sticky top-0 z-50 w-full">
+    <header className="sticky -top-0.5 z-50 w-full">
       {/* --- Top Bar --- */}
-      <div className="flex w-full bg-gray-200 dark:bg-neutral-900 py-1 justify-between px-4 sm:px-8">
-        <p className="font-semibold text-xs sm:text-base truncate pr-2">
+      <div className="flex w-full bg-gray-200 dark:bg-neutral-900 py-1 justify-between px-5">
+        <p className="font-semibold hidden sm:flex text-xs sm:text-base truncate pr-2">
           Just Landed: The Nike App. Learn More
         </p>
 
-        <div className="hidden sm:flex gap-3 md:gap-6 font-semibold whitespace-nowrap text-sm">
+        <div className="flex gap-3 md:gap-6 font-semibold whitespace-nowrap text-sm">
           <p className="cursor-pointer" onClick={goToSignin}>
             Sign in
           </p>
-          <p className="cursor-pointer">Join Us</p>
-          <p className="cursor-pointer hidden md:block">Help</p>
-          <p className="cursor-pointer md:hidden">?</p>
+          <p className="cursor-pointer text-neutral-500">Join Us</p>
+          <p className="cursor-pointer text-neutral-500">Help</p>
         </div>
       </div>
 
       {/* --- Main Navbar --- */}
-      <div className="w-full border-y-2 border-gray-400 dark:border-neutral-600 dark:bg-neutral-900 px-4 sm:px-8 flex items-center justify-between h-[60px] bg-white transition-all">
+      <div className="w-full border-y-2 border-gray-400 dark:border-neutral-600 dark:bg-neutral-900 px-5 flex items-center justify-between h-[60px] bg-white transition-all">
         {/* Left Side */}
         <div className="flex items-center">
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="lg:hidden text-3xl text-black mr-4"
+            className="lg:hidden text-3xl text-black dark:text-neutral-200 mr-4"
           >
             {isMenuOpen ? <IoClose /> : <FiMenu />}
           </button>
 
-          <div className="text-4xl lg:text-6xl border-x-2 px-3 lg:px-5 dark:border-neutral-600 border-gray-400 cursor-pointer">
+          <div className="text-4xl lg:text-6xl md:border-x-2 px-3 lg:px-5 dark:border-neutral-600 border-gray-400 cursor-pointer">
             <SiNike />
           </div>
         </div>
@@ -76,17 +82,80 @@ const Navbar = ({
         </div>
 
         {/* Right Side */}
-        <div className="flex items-center">
-          <button className="border-x-2 border-gray-400 dark:border-neutral-600 flex lg:p-3.5">
+        <div className="flex md:gap-0 gap-4 items-center">
+          <button className="md:border-x-2 cursor-pointer border-gray-400 dark:border-neutral-600 flex md:p-3.5">
             <ThemeButton />
           </button>
+          <button onClick={openFavorite} className="md:border-r-2 relative cursor-pointer border-gray-400 dark:border-neutral-600 flex md:p-3.5">
+            <CgHeart className='md:text-3xl text-2xl'/>
+            <span className="absolute rounded-full -top-1 -right-2 lg:right-2 text-[14px] lg:top-2.5 text-rose-500 bg-white dark:bg-neutral-900 w-4 h-4.5 font-bold flex items-center justify-center">{favorite.length}</span>
+          </button>
+
+          <div
+            className={clsx(
+              'w-dvw h-dvh right-0 top-0 fixed bg-black/35 flex-center duration-300',
+              isFavoriteOpen ? '' : 'invisible opacity-0'
+            )}
+          >
+            <div className="absolute border-x-2 border-b-2 border-zinc-400 dark:border-neutral-600 w-full max-w-md md:top-15 top-21.5 right-0 md:m-8 h-fit bg-white dark:bg-neutral-800">
+              <div>
+                <div className="flex justify-between font-semibold px-4 text-lg items-center gap-2 border-y-2 border-zinc-400 dark:border-neutral-600 py-2 bg-neutral-200 dark:bg-neutral-900">
+                  <div className="flex">
+                    <p>Favorites</p>
+                    <p>(<span>{favorite.length}</span>)</p>
+                  </div>
+                  <IoClose
+                    onClick={closeFavorite}
+                    className="text-2xl transition-transform duration-400 hover:scale-120 cursor-pointer"
+                  />
+                </div>
+
+                <div>
+                  {favorite.length === 0 ? (
+                    <p className="w-full text-center font-semibold p-6">
+                      Favorite is empty :(
+                    </p>
+                  ) : (
+                    favorite.map((product) => (
+                      <div key={product.id}>
+                        <article className="flex border-b-2 hover:bg-[#00000032] border-zinc-400 dark:border-neutral-600 p-4 justify-between">
+                          <div className="flex w-1/2">
+                            <img className="rounded-sm" src={product.src} />
+                          </div>
+
+                          <div className="ml-4">
+                            <p className="font-bold text-lg">{product.title}</p>
+                            <p className="font-semibold text-neutral-500">{product.size}</p>
+                            <p className="text-green-600 font-semibold">${product.price}</p>
+
+                              <div className="flex cursor-pointer mt-5 font-semibold py-1 px-4 items-center gap-3 text-md">
+                                <div onClick={() => removeFromFavorite(product.id)} className='flex bg-neutral-200 dark:bg-neutral-900 px-2 py-1.5 rounded-sm'>
+                                <HiMiniTrash
+                                  className="cursor-pointer text-xl text-rose-500"
+                                />
+                                Delete
+                                </div>
+                                <div className='flex w-26 bg-neutral-200 dark:bg-neutral-100 text-neutral-900 px-2 py-1 rounded-sm'>
+                                  View details
+                                </div>
+                              </div>
+                          </div>
+                        </article>
+                      </div>
+                    ))
+                  )}
+              </div>
+            </div>
+          </div>
+        </div>
+
 
           <button
             onClick={openModal}
-            className="border-r-2 z-20 relative border-gray-400 dark:border-neutral-600 p-2 lg:p-3.5"
+            className="md:border-r-2 cursor-pointer z-20 relative border-gray-400 dark:border-neutral-600 md:p-3.5"
           >
             <RiShoppingBagLine className="text-2xl lg:text-3xl hover:text-gray-700 dark:hover:text-white transition-transform duration-400 hover:scale-110" />
-            <span className="absolute rounded-full top-0.5 right-0 lg:right-2 lg:top-2.5 text-white bg-rose-600 w-4 h-4.5 font-semibold flex items-center justify-center">
+            <span className="absolute rounded-full -top-1 -right-2 lg:right-2 text-[14px] lg:top-2.5 text-rose-500 bg-white dark:bg-neutral-900 w-4 h-4.5 font-bold flex items-center justify-center">
               {cart.length}
             </span>
           </button>
@@ -98,7 +167,7 @@ const Navbar = ({
               isOpen ? '' : 'invisible opacity-0'
             )}
           >
-            <div className="absolute border-x-2 border-b-2 border-zinc-400 dark:border-neutral-600 w-full max-w-md top-15 right-0 m-8 h-fit bg-white dark:bg-neutral-800">
+            <div className="absolute border-x-2 border-b-2 border-zinc-400 dark:border-neutral-600 w-full max-w-md md:top-15 top-21.5 right-0 md:m-8 h-fit bg-white dark:bg-neutral-800">
               <div>
                 <div className="flex justify-between font-semibold px-4 text-lg items-center gap-2 border-y-2 border-zinc-400 dark:border-neutral-600 py-2 bg-neutral-200 dark:bg-neutral-900">
                   <div className="flex">

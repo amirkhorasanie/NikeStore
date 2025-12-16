@@ -5,45 +5,51 @@ import Footer from '../common/Footer'
 
 const RootLayout = () => {
   const [cart, setCart] = useState([]);
+  const [favorite, setFavorite] = useState([]);
   
-const addToCart = (product) => {
-  setCart(prev => {
-    const exists = prev.find(item => item.id === product.id);
-
-    if (exists) {
-      return prev.map(item =>
-        item.id === product.id
-          ? { ...item, quantity: item.quantity + 1 }
-          : item
-      );
-    }
-
-    return [...prev, { ...product, quantity: 1 }];
-  });
-};
-
-const increaseQty = (id) => {
-  setCart(prev =>
-    prev.map(item =>
-      item.id === id
+  const addToFavorite = (product) => {
+    setFavorite(prev => {
+      const isExist = prev.some(item => item.id === product.id)
+      if(isExist) return prev
+      return [...prev, product]
+    })
+  }
+  
+  const addToCart = (product) => {
+    setCart(prev => {
+      const exists = prev.find(item => item.id === product.id);
+      
+      if (exists) {
+        return prev.map(item =>
+          item.id === product.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+          );
+      }
+        return [...prev, { ...product, quantity: 1 }];
+      });
+    };
+    
+    const increaseQty = (id) => {
+      setCart(prev =>
+        prev.map(item =>
+        item.id === id
         ? { ...item, quantity: item.quantity + 1 }
         : item
-    )
-  );
-};
-
-const decreaseQty = (id) => {
-  setCart(prev =>
-    prev
-      .map(item =>
-        item.id === id
-          ? { ...item, quantity: item.quantity - 1 }
-          : item
-      )
-      .filter(item => item.quantity > 0)
-  );
-};
-
+        )
+      );
+    };
+    const decreaseQty = (id) => {
+      setCart(prev =>
+        prev
+          .map(item =>
+            item.id === id
+            ? { ...item, quantity: item.quantity - 1 }
+            : item
+          )
+        .filter(item => item.quantity > 0)
+      );
+    };
   
   const clearCart = () => {
     setCart([])
@@ -52,6 +58,10 @@ const decreaseQty = (id) => {
   const removeFromCart = (id) => {
     setCart(prev => prev.filter(item => item.id !== id));
   };
+  
+  const removeFromFavorite = (id) => {
+    setFavorite(prev => prev.filter(item => item.id !== id));
+  }
 
   const matches = useMatches();
   const hideFooter = matches.some(match => match.handle?.hideFooter);
@@ -60,16 +70,19 @@ const decreaseQty = (id) => {
     <section id='root'>
       <Header 
         cart={cart} 
+        favorite={favorite}
         clearCart={clearCart} 
+        removeFromFavorite={removeFromFavorite}
         removeFromCart={removeFromCart} 
-        increaseQty={increaseQty} decreaseQty={decreaseQty}
+        increaseQty={increaseQty} 
+        decreaseQty={decreaseQty}
       />
       <ScrollRestoration />
-
+      
       <main>
-        <Outlet context={{ cart, addToCart}} />
+        <Outlet context={{ cart, addToCart, favorite, addToFavorite}} />
       </main>
-
+      
       {!hideFooter && <Footer />}
     </section>
   );

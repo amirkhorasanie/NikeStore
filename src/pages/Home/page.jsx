@@ -23,7 +23,7 @@ const Home = () => {
   return (
     <div>
     <ExploreCollection />
-    <div className='flex w-full border-y-2 px-8 items-center dark:border-neutral-600 border-gray-400 justify-between h-20'>
+    <div className='flex w-full border-y-2 px-5 items-center dark:border-neutral-600 border-gray-400 justify-between h-20'>
         <FilterBar/>
         <SearchInput
           inputValue={searchValue}

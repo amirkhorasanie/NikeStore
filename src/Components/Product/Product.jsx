@@ -13,7 +13,7 @@ const Product = ({ id, src, status, title, size, colornumber, price, New, See })
   }, []);
 
   return (
-    <div className="relative py-2 transition-transform
+    <div className="relative border-b-2 border-zinc-400 dark:border-neutral-600 md:border-b-0 py-2.5 transition-transform
       duration-400 hover:scale-100 group">
       
       <p className="absolute top-10 font-semibold
@@ -24,11 +24,16 @@ const Product = ({ id, src, status, title, size, colornumber, price, New, See })
       {loading ? (
         <Shimmer />
       ) : (
-        <Link to={PRODUCT_URL}>
-          <img className="w-full dark:brightness-75 object-cover py-2 px-4" src={src} />
-        </Link>
+        <div className="relative">
+          <Link to={PRODUCT_URL} className="block relative">
+            <img
+              className="w-full object-cover pb-1.5 px-4 dark:brightness-75 relative z-10"
+              src={src}
+            />
+            <div className="glow"></div>
+          </Link>
+        </div>
       )}
-
       <button
         className="absolute inset-0 flex items-end
           pointer-events-none py-3.5 px-3.5 justify-end

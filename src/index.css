@@ -18,3 +18,27 @@ html.dark {
   border-radius: 30px;
   transition: all 0.7s;
 }
+.glow {
+  position: absolute;
+  bottom: -40px;          /* فاصله از عکس */
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 100%;            /* هم اندازه عرض عکس */
+  aspect-ratio: 2 / 1;    /* نیم دایره ریسپانسیو */
+  max-width: 100%;
+
+  border-radius: 0 0 999px 999px;
+
+  background: radial-gradient(
+    ellipse at center,
+    rgba(189, 189, 189, 0.586) 10%,
+    rgba(181, 181, 181, 0.498) 40%,
+    rgba(159, 159, 159, 0.055) 60%,
+    transparent 100%
+  );
+
+  filter: blur(35px);
+  z-index: 0;
+  pointer-events: none;
+}

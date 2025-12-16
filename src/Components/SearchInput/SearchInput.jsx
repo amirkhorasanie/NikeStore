@@ -3,7 +3,7 @@ import { RiSearchLine } from 'react-icons/ri';
 
 const SearchInput = ({ inputValue, onChange }) => {
   return (
-    <div className="relative font-semibold w-full max-w-sm md:max-w-md lg:max-w-lg border-x-2 py-5 px-4 sm:px-5 dark:border-neutral-600 border-gray-400 mx-auto">
+    <div className="relative font-semibold w-full max-w-sm md:max-w-md lg:max-w-lg border-x-2 py-5 px-4 dark:border-neutral-600 border-gray-400 mx-auto">
       
       {/* Input Field */}
       <input
